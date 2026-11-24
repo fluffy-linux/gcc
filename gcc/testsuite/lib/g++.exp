@@ -91,8 +91,11 @@ proc g++_include_flags { paths } {
 
     set gccpath ${paths}
 
+    # With --disable-libstdcxx there is no libstdc++-v3 build directory and
+    # lookfor_file finds the source directory instead, which has no
+    # scripts/testsuite_flags; use the installed headers then.
     set odir [lookfor_file ${gccpath} libstdc++-v3]
-    if { ${odir} != "" } {
+    if { ${odir} != "" && [file exists ${odir}/scripts/testsuite_flags] } {
       append flags [exec sh ${odir}/scripts/testsuite_flags --build-includes]  
     }
 
