@@ -15282,7 +15282,7 @@ BUILD_SYSTEM_HEADER_DIR=$SYSTEM_HEADER_DIR
 
 if test x$host != x$target || test "x$TARGET_SYSTEM_ROOT" != x ||
    test x$build != x$host || test "x$with_build_sysroot" != x; then
-  if test "x$with_build_sysroot" != x; then
+  if test "x$with_build_sysroot" != x || test "x$configured_native_system_header_dir" != x; then
     BUILD_SYSTEM_HEADER_DIR=$with_build_sysroot'$${sysroot_headers_suffix}$(NATIVE_SYSTEM_HEADER_DIR)'
   else
     BUILD_SYSTEM_HEADER_DIR='$(CROSS_SYSTEM_HEADER_DIR)'
@@ -15297,7 +15297,7 @@ if test x$host != x$target || test "x$TARGET_SYSTEM_ROOT" != x ||
     SYSTEM_HEADER_DIR='$(CROSS_SYSTEM_HEADER_DIR)'
   fi
 
-  if test "x$with_build_sysroot" != "x"; then
+  if test "x$with_build_sysroot" != "x" || test "x$configured_native_system_header_dir" != x; then
     target_header_dir="${with_build_sysroot}${native_system_header_dir}"
   elif test "x$with_sysroot" = x; then
     target_header_dir="${test_exec_prefix}/${target_noncanonical}/sys-include"

@@ -577,16 +577,16 @@ endif
 # The sed idiom for this is to repeat the search-and-replace until it doesn't match, using :a ... ta.
 # Use single quotes here to avoid nested double- and backquotes, this
 # macro is also used in a double-quoted context.
-SYSTEM_HEADER_DIR = `echo @SYSTEM_HEADER_DIR@ | sed -e :a -e 's,[^/]*/\.\.\/,,' -e ta`
+SYSTEM_HEADER_DIR = `echo "@SYSTEM_HEADER_DIR@" | sed -e :a -e 's,[^/]*/\.\.\/,,' -e ta`
 
 # Path to the system headers on the build machine.
-BUILD_SYSTEM_HEADER_DIR = `echo @BUILD_SYSTEM_HEADER_DIR@ | sed -e :a -e 's,[^/]*/\.\.\/,,' -e ta`
+BUILD_SYSTEM_HEADER_DIR = `echo "@BUILD_SYSTEM_HEADER_DIR@" | sed -e :a -e 's,[^/]*/\.\.\/,,' -e ta`
 
 # Control whether to run fixincludes.
 STMP_FIXINC = @STMP_FIXINC@
 
 # Test to see whether <limits.h> exists in the system header files.
-LIMITS_H_TEST = [ -f $(BUILD_SYSTEM_HEADER_DIR)/limits.h ]
+LIMITS_H_TEST = for f in $(BUILD_SYSTEM_HEADER_DIR)/limits.h; do [ -f "$$f" ] && break; done && [ -f "$$f" ]
 
 # Directory for prefix to system directories, for
 # each of $(system_prefix)/usr/include, $(system_prefix)/usr/lib, etc.
