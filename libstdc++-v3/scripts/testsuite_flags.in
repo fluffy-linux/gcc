@@ -85,7 +85,7 @@ case ${query} in
       if [ -d ${BUILD_DIR}/src/experimental/.libs ]; then
         EXP_LDFLAGS=-L${BUILD_DIR}/src/experimental/.libs
       fi
-      SECTIONLDFLAGS="@SECTION_LDFLAGS@ @LIBICONV@ $FS_LDFLAGS $EXP_LDFLAGS"
+      SECTIONLDFLAGS="-L${BUILD_DIR}/src/.libs @SECTION_LDFLAGS@ @LIBICONV@ $FS_LDFLAGS $EXP_LDFLAGS"
       echo ${SECTIONLDFLAGS}
       ;;
     *)
