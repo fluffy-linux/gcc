@@ -9,3 +9,4 @@ int
 main ()
 {
 }
+// { dg-skip-if "needs libstdc++ built in-tree (gcc is configured with --disable-libstdcxx)" { *-*-* } }

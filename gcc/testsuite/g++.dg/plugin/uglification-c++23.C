@@ -7,3 +7,4 @@
 
 // { dg-bogus "note: non-uglified name" "" { target *-*-* } 0 }
 // { dg-bogus "note: badname" "" { target *-*-* } 0 }
+// { dg-skip-if "needs libstdc++ built in-tree (gcc is configured with --disable-libstdcxx)" { *-*-* } }

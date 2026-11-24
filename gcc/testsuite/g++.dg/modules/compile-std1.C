@@ -14,3 +14,4 @@ void f()
 {
   std::string s;
 }
+// { dg-skip-if "needs libstdc++ built in-tree (gcc is configured with --disable-libstdcxx)" { *-*-* } }
