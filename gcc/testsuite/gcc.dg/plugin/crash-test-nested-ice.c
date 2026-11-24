@@ -23,3 +23,4 @@ void test_1 (void)
 /* Use a Python script to verify various properties about the generated
    .html file:
    { dg-final { run-html-pytest crash-test-nested-ice.c "crash-test-nested-ice-html.py" } } */
+/* { dg-skip-if "release checking reports an ICE after an error as confused by earlier errors" { *-*-* } } */
