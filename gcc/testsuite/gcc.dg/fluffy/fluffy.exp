@@ -1,0 +1,97 @@
+# Copyright (C) 2026 Free Software Foundation, Inc.
+
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with GCC; see the file COPYING3.  If not see
+# <http://www.gnu.org/licenses/>.
+
+# Fluffy Linux search path tests.
+#
+# Fluffy configures gcc with --with-native-system-header-dir='/sw/*/include'
+# and lets every include directory and driver prefix (-I, -I=, -B, the
+# standard directories, --sysroot below them) name a search-list element as
+# execvp reads PATH: a path component that is exactly '*' stands for every
+# directory it matches, and nothing else is a wildcard, so "[1]" in a name
+# is literal.  The include tests below build their own fixture trees (with
+# "[1]" in the directory names) under the current output directory, so they
+# never depend on the host's /sw.  The tests take no dg-options; fluffy.exp
+# supplies each one's fixture options.  Tests without an entry in
+# fluffy_include_flags (the live zlib/zstd link test) run with the default
+# options only.
+
+load_lib gcc-dg.exp
+
+global DEFAULT_CFLAGS
+if ![info exists DEFAULT_CFLAGS] then {
+    set DEFAULT_CFLAGS " -ansi -pedantic-errors"
+}
+
+dg-init
+
+set fx [file join [pwd] fluffy-include]
+file delete -force $fx
+foreach {name text} {
+    wild/pkg[1]/include/wild_test.h	"#define WILD_OK 42"
+    sys[1]/sw/pkg[1]/include/sys_test.h	"#define SYS_OK 99"
+    lit[1]/include/lit_test.h		"#define LIT_OK 77"
+    lit1/include/lit_test.h		"#define LIT_OK 13"
+} {
+    file mkdir [file dirname [file join $fx $name]]
+    set fd [open [file join $fx $name] w]
+    puts $fd $text
+    close $fd
+}
+
+# The compiler command line goes through Tcl evaluation in DejaGnu's
+# local_exec, so quote the brackets in the fixture names.
+set q [string map {[ \\[ ] \\]} $fx]
+
+array set fluffy_include_flags [list \
+    include-wild.c "-I$q/wild/*/include" \
+    include-sysroot.c "--sysroot=$q/sys\\\[1\\\]" \
+    include-sysroot-eq.c "--sysroot=$q/sys\\\[1\\\] -I=/sw/*/include" \
+    include-sysroot-eq-nostdinc.c "--sysroot=$q/sys\\\[1\\\] -nostdinc -I=/sw/*/include" \
+    include-literal.c "-I$q/lit\\\[1\\\]/include" \
+    missing-include-dirs.c "-Wmissing-include-dirs -Werror -I$q/nonexistent_inc\\\[1\\\]" \
+]
+
+# The fixture options go in the default-flags argument so that the
+# absolute fixture paths do not end up in the test names.
+foreach test [lsort [glob -nocomplain $srcdir/$subdir/*.c]] {
+    set flags $DEFAULT_CFLAGS
+    if [info exists fluffy_include_flags([file tail $test])] {
+	append flags " " $fluffy_include_flags([file tail $test])
+    }
+    dg-runtest [list $test] "" $flags
+}
+
+file delete -force $fx
+
+# The driver, run by a bare name that execvp found through a PATH element
+# with a '*' component, must find itself the same way, and so its own
+# directory: -print-search-dirs then reports an install directory under
+# the driver's, not a relative one.  GCC_EXEC_PREFIX would bypass this.
+global GCC_UNDER_TEST
+set xgcc [file normalize [lindex $GCC_UNDER_TEST 0]]
+set xdir [file dirname $xgcc]
+set testname "fluffy driver finds itself through a PATH element with '*'"
+if { [catch {exec env -u GCC_EXEC_PREFIX "PATH=[file dirname $xdir]/*" \
+		 [file tail $xgcc] -print-search-dirs} out] } {
+    fail "$testname (exec: $out)"
+} elseif { [regexp -line {^install: (.*)$} $out -> install]
+	   && [string first "$xdir/" $install] == 0 } {
+    pass $testname
+} else {
+    fail "$testname ([lindex [split $out \n] 0])"
+}
+
+dg-finish
