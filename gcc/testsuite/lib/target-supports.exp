@@ -1775,6 +1775,30 @@ proc check_effective_target_fstack_protector_enabled {} {
     }]
 }
 
+# Return 1 if <zlib.h> and <zstd.h> are found on the compiler's default
+# include path, i.e. zlib and zstd are installed where the compiler looks
+# without any -I option.
+
+proc check_effective_target_zlib_zstd_headers { } {
+    return [check_no_compiler_messages zlib_zstd_headers assembly {
+	#if !__has_include(<zlib.h>) || !__has_include(<zstd.h>)
+	#error zlib.h or zstd.h not found
+	#endif
+    }]
+}
+
+# Return 1 if the C++ standard library headers are found on the compiler's
+# default include path (also when libstdc++ is not built in-tree).
+
+proc check_effective_target_libstdcxx_headers { } {
+    return [check_no_compiler_messages libstdcxx_headers assembly {
+	// C++
+	#if !__has_include(<cstdlib>)
+	#error <cstdlib> not found
+	#endif
+    }]
+}
+
 # Return 1 if the target does not use a status wrapper.
 
 proc check_effective_target_unwrapped { } {
