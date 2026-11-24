@@ -108,8 +108,8 @@ find_a_file (struct path_prefix *pprefix, const char *name, int mode)
 /* Add an entry for PREFIX to prefix list PREFIX.
    Add at beginning if FIRST is true.  */
 
-void
-do_add_prefix (struct path_prefix *pprefix, const char *prefix, bool first)
+static void
+do_add_prefix_1 (struct path_prefix *pprefix, const char *prefix, bool first)
 {
   struct prefix_list *pl, **prev;
   int len;
@@ -137,6 +137,30 @@ do_add_prefix (struct path_prefix *pprefix, const char *prefix, bool first)
   else
     pl->next = (struct prefix_list *) 0;
   *prev = pl;
+}
+
+/* Fluffy: a whole '*' path component in PREFIX stands for every directory
+   it matches, in byte order, as glob's GLOB_PATHS expands it for execvp and
+   the dynamic loader.  Any other prefix, even an empty one, is upstream's:
+   GLOB_PATHS would read "" as "." and split at ':'.  Matches added at the
+   beginning are added last first, to keep them in order.  */
+
+void
+do_add_prefix (struct path_prefix *pprefix, const char *prefix, bool first)
+{
+  glob_t gbuf;
+
+  if (strchr (prefix, '*') != NULL
+      && glob (prefix, GLOB_PATHS | GLOB_NOMAGIC, NULL, &gbuf) == 0)
+    {
+      for (size_t gi = 0; gi < gbuf.gl_pathc; gi++)
+	do_add_prefix_1 (pprefix,
+			 gbuf.gl_pathv[first ? gbuf.gl_pathc - 1 - gi : gi],
+			 first);
+      globfree (&gbuf);
+    }
+  else
+    do_add_prefix_1 (pprefix, prefix, first);
 }
 
 /* Add an entry for PREFIX at the end of prefix list PREFIX.  */

@@ -617,6 +617,7 @@ extern int vsnprintf (char *, size_t, const char *, va_list);
 #if HAVE_SYS_STAT_H
 # include <sys/stat.h>
 #endif
+#include <glob.h>
 
 /* Test if something is a normal file.  */
 #ifndef S_ISREG

@@ -332,10 +332,34 @@ add_sysroot_to_chain (const char *sysroot, int chain)
     {
       if (p->user_supplied_p)
 	{
+	  const char *name = p->name;
+	  glob_t gbuf;
+
 	  if (p->name[0] == '=')
 	    p->name = concat (sysroot, p->name + 1, NULL);
 	  if (startswith (p->name, "$SYSROOT"))
 	    p->name = concat (sysroot, p->name + strlen ("$SYSROOT"), NULL);
+
+	  /* Fluffy: expand the sysrooted path as add_path does any other,
+	     one entry per match, each after the last.  */
+	  if (p->name != name && strchr (p->name, '*') != NULL
+	      && glob (p->name, GLOB_PATHS | GLOB_NOMAGIC, NULL, &gbuf) == 0)
+	    {
+	      p->name = xstrdup (gbuf.gl_pathv[0]);
+	      p->len = strlen (p->name);
+	      for (size_t gi = 1; gi < gbuf.gl_pathc; gi++)
+		{
+		  struct cpp_dir *q = XNEW (struct cpp_dir);
+		  *q = *p;
+		  q->name = xstrdup (gbuf.gl_pathv[gi]);
+		  q->len = strlen (q->name);
+		  p->next = q;
+		  p = q;
+		}
+	      if (p->next == NULL)
+		tails[chain] = p;
+	      globfree (&gbuf);
+	    }
 	}
     }
 }
@@ -446,8 +470,9 @@ add_cpp_dir_path (cpp_dir *p, incpath_kind chain)
 
 /* Add PATH to the include chain CHAIN. PATH must be malloc-ed and
    NUL-terminated.  */
-void
-add_path (char *path, incpath_kind chain, int cxx_aware, bool user_supplied_p)
+static void
+add_path_1 (char *path, incpath_kind chain, int cxx_aware,
+	    bool user_supplied_p)
 {
   cpp_dir *p;
   size_t pathlen = strlen (path);
@@ -482,6 +507,31 @@ add_path (char *path, incpath_kind chain, int cxx_aware, bool user_supplied_p)
   p->user_supplied_p = user_supplied_p;
 
   add_cpp_dir_path (p, chain);
+}
+
+/* Fluffy: a whole '*' path component in PATH stands for every directory it
+   matches, in byte order, as glob's GLOB_PATHS expands it for execvp and
+   the dynamic loader.  Any other path, even an empty one, is upstream's:
+   GLOB_PATHS would read "" as "." and split at ':'.  A user's "=" or
+   "$SYSROOT" path is expanded in add_sysroot_to_chain, once the sysroot is
+   known.  */
+void
+add_path (char *path, incpath_kind chain, int cxx_aware, bool user_supplied_p)
+{
+  glob_t gbuf;
+
+  if ((user_supplied_p && (path[0] == '=' || startswith (path, "$SYSROOT")))
+      || strchr (path, '*') == NULL
+      || glob (path, GLOB_PATHS | GLOB_NOMAGIC, NULL, &gbuf) != 0)
+    {
+      add_path_1 (path, chain, cxx_aware, user_supplied_p);
+      return;
+    }
+  for (size_t gi = 0; gi < gbuf.gl_pathc; gi++)
+    add_path_1 (xstrdup (gbuf.gl_pathv[gi]), chain, cxx_aware,
+		user_supplied_p);
+  globfree (&gbuf);
+  free (path);
 }
 
 /* Exported function to handle include chain merging, duplicate

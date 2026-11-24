@@ -3158,9 +3158,9 @@ enum path_prefix_priority
    2 means try both machine_suffix and just_machine_suffix.  */
 
 static void
-add_prefix (struct path_prefix *pprefix, const char *prefix,
-	    const char *component, /* enum prefix_priority */ int priority,
-	    int require_machine_suffix, int os_multilib)
+add_prefix_1 (struct path_prefix *pprefix, const char *prefix,
+	      const char *component, /* enum prefix_priority */ int priority,
+	      int require_machine_suffix, int os_multilib)
 {
   struct prefix_list *pl, **prev;
   int len;
@@ -3186,6 +3186,33 @@ add_prefix (struct path_prefix *pprefix, const char *prefix,
   /* Insert after PREV.  */
   pl->next = (*prev);
   (*prev) = pl;
+}
+
+/* Fluffy: a whole '*' path component in PREFIX stands for every directory
+   it matches, in byte order, as glob's GLOB_PATHS expands it for execvp and
+   the dynamic loader.  Any other prefix, even an empty one, is upstream's:
+   GLOB_PATHS would read "" as "." and split at ':'.  */
+
+static void
+add_prefix (struct path_prefix *pprefix, const char *prefix,
+	    const char *component, /* enum prefix_priority */ int priority,
+	    int require_machine_suffix, int os_multilib)
+{
+  char *path = update_path (prefix, component);
+  glob_t gbuf;
+
+  if (strchr (path, '*') != NULL
+      && glob (path, GLOB_PATHS | GLOB_NOMAGIC, NULL, &gbuf) == 0)
+    {
+      for (size_t gi = 0; gi < gbuf.gl_pathc; gi++)
+	add_prefix_1 (pprefix, gbuf.gl_pathv[gi], NULL, priority,
+		      require_machine_suffix, os_multilib);
+      globfree (&gbuf);
+    }
+  else
+    add_prefix_1 (pprefix, path, NULL, priority, require_machine_suffix,
+		  os_multilib);
+  free (path);
 }
 
 /* Same as add_prefix, but prepending target_system_root to prefix.  */
@@ -4850,10 +4877,29 @@ process_command (unsigned int decoded_options_count,
   /* FIXME: make_relative_prefix doesn't yet work for VMS.  */
   if (!gcc_exec_prefix)
     {
-      gcc_exec_prefix = get_relative_prefix (decoded_options[0].arg,
+      /* Fluffy: a bare name was found in PATH, whose elements may have a
+	 whole '*' component, so find it the same way, with glob's
+	 GLOB_PATHS search list "{PATH}/NAME".  make_relative_prefix's own
+	 search reads each element literally.  */
+      const char *self = decoded_options[0].arg;
+      const char *path = env.get ("PATH");
+      glob_t gbuf;
+      if (lbasename (self) == self && path != NULL
+	  && glob (concat ("{", path, "}/", self, NULL), GLOB_PATHS,
+		   NULL, &gbuf) == 0)
+	{
+	  for (size_t gi = 0; gi < gbuf.gl_pathc; gi++)
+	    if (access (gbuf.gl_pathv[gi], X_OK) == 0)
+	      {
+		self = xstrdup (gbuf.gl_pathv[gi]);
+		break;
+	      }
+	  globfree (&gbuf);
+	}
+      gcc_exec_prefix = get_relative_prefix (self,
 					     standard_bindir_prefix,
 					     standard_exec_prefix);
-      gcc_libexec_prefix = get_relative_prefix (decoded_options[0].arg,
+      gcc_libexec_prefix = get_relative_prefix (self,
 					     standard_bindir_prefix,
 					     standard_libexec_prefix);
       if (gcc_exec_prefix)
