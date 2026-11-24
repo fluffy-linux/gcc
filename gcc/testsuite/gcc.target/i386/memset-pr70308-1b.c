@@ -1,5 +1,5 @@
 /* { dg-do compile } */
-/* { dg-options "-O2 -march=x86-64 -fomit-frame-pointer -DUSE_SCANF" } */
+/* { dg-options "-O2 -march=x86-64 -fomit-frame-pointer -DUSE_SCANF -fno-pie -fno-stack-protector" } */
 /* { dg-skip-if "64b Darwin does not support non-PIC" *-*-darwin* } */
 /* Keep labels and directives ('.cfi_startproc', '.cfi_endproc').  */
 /* { dg-final { check-function-bodies "**" "" "" { target lp64 } {^\t?\.} } } */
@@ -60,3 +60,4 @@ foo (void)
 }
 
 /* { dg-final { scan-assembler-not "rep stos" } } */
+/* Fluffy: gcc is configured with --enable-default-pie --enable-default-ssp; the expected code is the non-PIE one without stack protector.  */

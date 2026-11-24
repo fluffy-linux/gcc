@@ -1,6 +1,6 @@
 /* PR ipa/122458 */
 /* { dg-do link } */
-/* { dg-options "-O2" } */
+/* { dg-options "-O2 -no-pie" } */
 /* { dg-xfail-if ".dc.a is a gas extension" { ! gas } } */
 
 static int foo (void) { return 0; };
@@ -8,3 +8,4 @@ static int foo (void) { return 0; };
 asm (".dc.a %c0" :: "i" (foo));
 
 int main() {}
+/* Fluffy: gcc is configured with --enable-default-pie; the absolute .dc.a reference in .text needs a non-PIE link.  */

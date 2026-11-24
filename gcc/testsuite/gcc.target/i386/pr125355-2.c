@@ -1,5 +1,5 @@
 /* { dg-do compile } */
-/* { dg-options "-O2 -mtune=generic" } */
+/* { dg-options "-O2 -mtune=generic -fno-pie" } */
 /* Keep labels and directives ('.cfi_startproc', '.cfi_endproc').  */
 /* { dg-final { check-function-bodies "**" "" "" { target "*-*-*" } {^\t?\.} } } */
 
@@ -24,3 +24,4 @@ foo (char *d, char *s, size_t n)
       __builtin_abort ();
     }
 }
+/* Fluffy: gcc is configured with --enable-default-pie; the expected code is the non-PIE one.  */
