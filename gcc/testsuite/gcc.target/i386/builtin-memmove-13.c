@@ -1,5 +1,5 @@
 /* { dg-do compile } */
-/* { dg-options "-O2 -mno-avx -msse2 -mtune=generic" } */
+/* { dg-options "-O2 -mno-avx -msse2 -mtune=generic -fno-pie" } */
 /* Keep labels and directives ('.cfi_startproc', '.cfi_endproc').  */
 /* { dg-final { check-function-bodies "**" "*#" "" { target { lp64 && { ! *-*-darwin* } } } {^\t?\.} } } */
 /* { dg-final { check-function-bodies "*D" "*E" "" { target { lp64 && *-*-darwin* } } {^\t?\.} } } */
@@ -34,3 +34,4 @@ foo (void)
 {
   __builtin_memmove (a, a + 3, sizeof a - 3);
 }
+/* Fluffy: gcc is configured with --enable-default-pie; the expected code is the non-PIE one.  */

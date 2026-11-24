@@ -1,5 +1,5 @@
 /* { dg-do compile } */
-/* { dg-options "-O2 -march=x86-64 -minline-all-stringops -mmemset-strategy=vector_loop:256:noalign,libcall:-1:noalign" } */
+/* { dg-options "-O2 -march=x86-64 -minline-all-stringops -mmemset-strategy=vector_loop:256:noalign,libcall:-1:noalign -fno-pie" } */
 /* { dg-skip-if "64b Darwin does not support non-PIC" *-*-darwin* } */
 /* Keep labels and directives ('.cfi_startproc', '.cfi_endproc').  */
 /* { dg-final { check-function-bodies "**" "" "" { target lp64 } {^\t?\.} } } */
@@ -66,3 +66,4 @@ foo (int c, __SIZE_TYPE__ nbyte)
 {
  __builtin_memset (p, c, nbyte);
 }
+/* Fluffy: gcc is configured with --enable-default-pie; the expected code is the non-PIE one.  */

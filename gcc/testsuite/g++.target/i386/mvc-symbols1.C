@@ -1,6 +1,6 @@
 /* { dg-do compile } */
 /* { dg-require-ifunc "" } */
-/* { dg-options "-O0" } */
+/* { dg-options "-O0 -fno-pie" } */
 
 __attribute__((target_clones("default", "arch=slm", "sse4.2")))
 int foo ()
@@ -42,3 +42,4 @@ int bar(int x)
 /* { dg-final { scan-assembler-times "\n\tcall\t_Z3fooi\n" 1 } } */
 /* { dg-final { scan-assembler-times "\n\t\.type\t_Z3fooi, @gnu_indirect_function\n" 1 } } */
 /* { dg-final { scan-assembler-times "\n\t\.set\t_Z3fooi,_Z3fooi\.resolver\n" 1 } } */
+/* Fluffy: gcc is configured with --enable-default-pie; the expected code is the non-PIE one.  */

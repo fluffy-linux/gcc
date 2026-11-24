@@ -1,5 +1,5 @@
 /* { dg-do assemble } */
-/* { dg-options "-O2 -mno-sse -mtune=generic -save-temps" } */
+/* { dg-options "-O2 -mno-sse -mtune=generic -save-temps -fno-pie" } */
 /* Keep labels and directives ('.cfi_startproc', '.cfi_endproc').  */
 /* { dg-final { check-function-bodies "**" "*#" "" { target { lp64 && { ! *-*-darwin* } } } {^\t?\.} } } */
 /* { dg-final { check-function-bodies "*D" "*E" "" { target { lp64 && *-*-darwin* } } {^\t?\.} } } */
@@ -51,3 +51,4 @@ __seg_gs struct a m;
 void bar (struct a *dst) { *dst = m; }
 
 /* { dg-final { scan-assembler-not "rep movs" } } */
+/* Fluffy: gcc is configured with --enable-default-pie; the expected code is the non-PIE one.  */

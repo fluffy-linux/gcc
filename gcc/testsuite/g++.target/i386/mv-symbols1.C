@@ -1,6 +1,6 @@
 /* { dg-do compile } */
 /* { dg-require-ifunc "" } */
-/* { dg-options "-O0" } */
+/* { dg-options "-O0 -fno-pie" } */
 
 __attribute__((target("default")))
 int foo ()
@@ -66,3 +66,4 @@ int bar(int x)
 /* { dg-final { scan-assembler-times "\n\tcall\t_Z3fooi.ifunc\n" 1 } } */
 /* { dg-final { scan-assembler-times "\n\t\.type\t_Z3fooi.ifunc, @gnu_indirect_function\n" 1 } } */
 /* { dg-final { scan-assembler-times "\n\t\.set\t_Z3fooi.ifunc,_Z3fooi\.resolver\n" 1 } } */
+/* Fluffy: gcc is configured with --enable-default-pie; the expected code is the non-PIE one.  */

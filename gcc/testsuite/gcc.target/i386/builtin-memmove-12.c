@@ -1,6 +1,6 @@
 /* { dg-do compile } */
 /* { dg-skip-if "64b Darwin does not support non-PIC" *-*-darwin* } */
-/* { dg-options "-O2 -mno-avx -msse2 -mtune=generic" } */
+/* { dg-options "-O2 -mno-avx -msse2 -mtune=generic -fno-pie" } */
 /* Keep labels and directives ('.cfi_startproc', '.cfi_endproc').  */
 /* { dg-final { check-function-bodies "**" "" "" { target { lp64 } } {^\t?\.} } } */
 
@@ -40,3 +40,4 @@ foo (int x)
   __builtin_memmove (a + 2, a + 1, sizeof a - 2 * sizeof *a);
   a[1] = x;
 }
+/* Fluffy: gcc is configured with --enable-default-pie; the expected code is the non-PIE one.  */

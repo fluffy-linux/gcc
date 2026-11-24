@@ -1,5 +1,5 @@
 /* { dg-do compile { target fentry } } */
-/* { dg-options "-O2 -pg" } */
+/* { dg-options "-O2 -pg -fno-pie" } */
 /* Keep labels and directives ('.cfi_startproc', '.cfi_endproc').  */
 /* { dg-final { check-function-bodies "**" "" "" { target "*-*-*" } {^\t?\.} } } */
 
@@ -19,3 +19,4 @@ f2 (int count)
   for (int i = 0; i < count; ++i)
     f1 ();
 }
+/* Fluffy: gcc is configured with --enable-default-pie; the expected code is the non-PIE one.  */

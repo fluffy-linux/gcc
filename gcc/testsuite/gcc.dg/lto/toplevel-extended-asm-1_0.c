@@ -31,3 +31,6 @@ int main() {
   privatized_fn (0);
   call_privatized_fn ();
 }
+/* Fluffy: gcc is configured with --enable-default-pie; the toplevel asm uses
+   absolute relocations, which need a non-PIE link.  */
+/* { dg-extra-ld-options "-no-pie" } */
