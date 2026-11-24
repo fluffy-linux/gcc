@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/sw/bash/bin/bash
 
 if [ "$testdir" = "" ]; then
    echo You must use make check or make check-ada
@@ -49,7 +49,7 @@ fi
 
 export PATH ADA_INCLUDE_PATH ADA_OBJECTS_PATH BASE LD_LIBRARY_PATH
 
-echo '#!/bin/sh' > host_gnatchop
+echo '#!/sw/bash/bin/bash' > host_gnatchop
 echo PATH=`dirname $host_gnatchop`:'$PATH' >> host_gnatchop
 echo unset ADA_INCLUDE_PATH ADA_OBJECTS_PATH GCC_EXEC_PREFIX >> host_gnatchop
 echo export PATH >> host_gnatchop
@@ -57,7 +57,7 @@ echo exec gnatchop '"$@"' >> host_gnatchop
 
 chmod +x host_gnatchop
 
-echo '#!/bin/sh' > host_gnatmake
+echo '#!/sw/bash/bin/bash' > host_gnatmake
 echo PATH=`dirname $host_gnatmake`:'$PATH' >> host_gnatmake
 echo unset ADA_INCLUDE_PATH ADA_OBJECTS_PATH GCC_EXEC_PREFIX >> host_gnatmake
 echo export PATH >> host_gnatmake

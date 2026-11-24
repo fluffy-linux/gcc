@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/sw/bash/bin/bash
 #! -*- coding:utf-8; mode:shell-script; -*-
 
 # Download some prerequisites needed by GCC.

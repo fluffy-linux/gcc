@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/sw/bash/bin/bash
 #
 # Script to generate the NEWS file from online release notes.
 # Contributed by Joseph Myers <jsm28@cam.ac.uk>.

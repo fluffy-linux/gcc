@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/sw/bash/bin/bash
 #
 # Check for accurate dependencies in gcc/Makefile.in.
 #

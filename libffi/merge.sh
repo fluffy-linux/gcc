@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/sw/bash/bin/bash
 
 # FIXME: do we need a license (or whatever else) header here?
 

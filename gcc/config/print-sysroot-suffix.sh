@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/sw/bash/bin/bash
 # Script to generate SYSROOT_SUFFIX_SPEC equivalent to MULTILIB_OSDIRNAMES
 # Arguments are MULTILIB_OSDIRNAMES, MULTILIB_OPTIONS, MULTILIB_MATCHES,
 # and MULTILIB_REUSE.
@@ -59,7 +59,7 @@ matches="$3"
 reuse="$4"
 
 cat > print-sysroot-suffix3.sh <<\EOF
-#! /bin/sh
+#!/sw/bash/bin/bash
 # Print all the multilib matches for this option
 result="$1"
 EOF
@@ -72,7 +72,7 @@ echo 'echo $result' >> print-sysroot-suffix3.sh
 chmod +x print-sysroot-suffix3.sh
 
 cat > print-sysroot-suffix2.sh <<\EOF
-#! /bin/sh
+#!/sw/bash/bin/bash
 # Recursive script to enumerate all multilib combinations, match against
 # multilib directories and output a spec string of the result.
 # Will fold identical trees.

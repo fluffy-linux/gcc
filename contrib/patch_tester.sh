@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/sw/bash/bin/bash
 
 # Tests a set of patches from a directory.
 # Copyright (C) 2007-2026 Free Software Foundation, Inc.
@@ -223,7 +223,7 @@ cleanup () {
 }
 
 selfexec () {
-    exec ${CONFIG_SHELL-/bin/sh} $0 $args
+    exec ${CONFIG_SHELL-/sw/bash/bin/bash} $0 $args
 }
 
 update () {

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/sw/bash/bin/bash
 #
 # Update the current version date in DATESTAMP files and generate
 # ChangeLog file entries since the last DATESTAMP update from the

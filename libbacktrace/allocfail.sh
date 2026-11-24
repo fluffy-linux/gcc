@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/sw/bash/bin/bash
 
 # allocfail.sh -- Test for libbacktrace library.
 # Copyright (C) 2018-2026 Free Software Foundation, Inc.

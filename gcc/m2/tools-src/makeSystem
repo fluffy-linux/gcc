@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/sw/bash/bin/bash
 
 # makeSystem creates a target SYSTEM.def using the appropriate dialect template.
 

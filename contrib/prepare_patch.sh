@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/sw/bash/bin/bash
 #set -x
 
 # Prepares a patch for the patch tester.

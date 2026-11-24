@@ -1,4 +1,4 @@
-#!/bin/sh 
+#!/sw/bash/bin/bash 
 # Generates multilib.h.
 #   Copyright (C) 1994-2026 Free Software Foundation, Inc.
 
@@ -159,7 +159,7 @@ cd ./tmpmultilib.$$ || exit 1
 # by creating a temporary shell script which invokes itself.
 rm -f tmpmultilib
 cat >tmpmultilib <<\EOF
-#!/bin/sh
+#!/sw/bash/bin/bash
 # This recursive script basically outputs all combinations of its
 # input arguments, handling mutually exclusive sets of options by
 # repetition.  When the script is called, ${initial} is the list of
@@ -174,28 +174,28 @@ if [ "$#" != "0" ]; then
     all=${initial}`echo $first | sed -e 's_|_/_'g`
     first=`echo $first | sed -e 's_|_ _'g`
     echo ${all}/
-    initial="${initial}${all}/" ${CONFIG_SHELL-/bin/sh} ./tmpmultilib $@
-    ${CONFIG_SHELL-/bin/sh} ./tmpmultilib $first $@ | grep -v "^${all}"
+    initial="${initial}${all}/" ${CONFIG_SHELL-/sw/bash/bin/bash} ./tmpmultilib $@
+    ${CONFIG_SHELL-/sw/bash/bin/bash} ./tmpmultilib $first $@ | grep -v "^${all}"
     ;;
   *)
     for opt in `echo $first | sed -e 's|/| |'g`; do
       echo ${initial}${opt}/
     done
-    ${CONFIG_SHELL-/bin/sh} ./tmpmultilib $@
+    ${CONFIG_SHELL-/sw/bash/bin/bash} ./tmpmultilib $@
     for opt in `echo $first | sed -e 's|/| |'g`; do
-      initial="${initial}${opt}/" ${CONFIG_SHELL-/bin/sh} ./tmpmultilib $@
+      initial="${initial}${opt}/" ${CONFIG_SHELL-/sw/bash/bin/bash} ./tmpmultilib $@
     done
   esac
 fi
 EOF
 chmod +x tmpmultilib
 
-combinations=`initial=/ ${CONFIG_SHELL-/bin/sh} ./tmpmultilib ${options}`
+combinations=`initial=/ ${CONFIG_SHELL-/sw/bash/bin/bash} ./tmpmultilib ${options}`
 
 # If there exceptions, weed them out now
 if [ -n "${exceptions}" ]; then
   cat >tmpmultilib2 <<\EOF
-#!/bin/sh
+#!/sw/bash/bin/bash
 # This recursive script weeds out any combination of multilib
 # switches that should not be generated.  The output looks like
 # a list of subdirectory names with leading and trailing slashes.
@@ -214,14 +214,14 @@ cat >>tmpmultilib2 <<\EOF
   done
 EOF
   chmod +x tmpmultilib2
-  combinations=`${CONFIG_SHELL-/bin/sh} ./tmpmultilib2 ${combinations}`
+  combinations=`${CONFIG_SHELL-/sw/bash/bin/bash} ./tmpmultilib2 ${combinations}`
 fi
 
 # If the MULTILIB_REQUIRED list are provided,
 # filter out combinations not in this list.
 if [ -n "${multilib_required}" ]; then
   cat >tmpmultilib2 <<\EOF
-#!/bin/sh
+#!/sw/bash/bin/bash
 # This recursive script weeds out any combination of multilib
 # switches that not in the expected list.
 
@@ -240,7 +240,7 @@ cat >>tmpmultilib2 <<\EOF
 EOF
 
    chmod +x tmpmultilib2
-   combinations=`${CONFIG_SHELL-/bin/sh} ./tmpmultilib2 ${combinations}`
+   combinations=`${CONFIG_SHELL-/sw/bash/bin/bash} ./tmpmultilib2 ${combinations}`
 
 fi
 
@@ -343,7 +343,7 @@ fi
 # In other words, we must output all combinations of matches.
 rm -f tmpmultilib2
 cat >tmpmultilib2 <<\EOF
-#!/bin/sh
+#!/sw/bash/bin/bash
 # The positional parameters are a list of matches to consider.
 # ${dirout} is the directory name and ${optout} is the current list of
 # options.
@@ -352,12 +352,12 @@ if [ "$#" = "0" ]; then
 else
   first=$1
   shift
-  dirout="${dirout}" optout="${optout}" ${CONFIG_SHELL-/bin/sh} ./tmpmultilib2 $@
+  dirout="${dirout}" optout="${optout}" ${CONFIG_SHELL-/sw/bash/bin/bash} ./tmpmultilib2 $@
   l=`echo ${first} | sed -e 's/=.*$//' -e 's/?/=/g'`
   r=`echo ${first} | sed -e 's/^.*=//' -e 's/?/=/g'`
   if expr " ${optout} " : ".* ${l} .*" > /dev/null; then
     newopt=`echo " ${optout} " | sed -e "s/ ${l} / ${r} /" -e 's/^ //' -e 's/ $//'`
-    dirout="${dirout}" optout="${newopt}" ${CONFIG_SHELL-/bin/sh} ./tmpmultilib2 $@
+    dirout="${dirout}" optout="${newopt}" ${CONFIG_SHELL-/sw/bash/bin/bash} ./tmpmultilib2 $@
   fi
 fi
 EOF
@@ -380,7 +380,7 @@ echo "\".${defaultosdirname} ${optout};\","
 # MULTILIB_OSDIRNAMES or the option combination itself.
 rm -rf tmpmultilib3
 cat >tmpmultilib3 <<\EOF
-#!/bin/sh
+#!/sw/bash/bin/bash
 
 dirout=
 combo=$1
@@ -430,7 +430,7 @@ chmod +x tmpmultilib3
 # and negate each option that is not present.
 rm -rf tmpmultilib4
 cat > tmpmultilib4 <<\EOF
-#!/bin/sh
+#!/sw/bash/bin/bash
 
 optout=
 combo=$1
@@ -457,14 +457,14 @@ chmod +x tmpmultilib4
 # correct list of options and negations.
 for combo in ${combinations}; do
   # Use the directory names rather than the option names.
-  dirout=`${CONFIG_SHELL-/bin/sh} ./tmpmultilib3 "${combo}" "${todirnames}" "${toosdirnames}" "${enable_multilib}"`
+  dirout=`${CONFIG_SHELL-/sw/bash/bin/bash} ./tmpmultilib3 "${combo}" "${todirnames}" "${toosdirnames}" "${enable_multilib}"`
 
   # Look through the options.  We must output each option that is
   # present, and negate each option that is not present.
-  optout=`${CONFIG_SHELL-/bin/sh} ./tmpmultilib4 "${combo}" "${options}"`
+  optout=`${CONFIG_SHELL-/sw/bash/bin/bash} ./tmpmultilib4 "${combo}" "${options}"`
 
   # Output the line with all appropriate matches.
-  dirout="${dirout}" optout="${optout}" ${CONFIG_SHELL-/bin/sh} ./tmpmultilib2
+  dirout="${dirout}" optout="${optout}" ${CONFIG_SHELL-/sw/bash/bin/bash} ./tmpmultilib2
 done
 
 # Terminate the list of string.
@@ -495,11 +495,11 @@ for rrule in ${multilib_reuse}; do
   if expr "${combinations} " : ".*/${combo}/.*" > /dev/null; then
     if echo "/${copts}/" | grep -E "${options_re}" > /dev/null; then
       combo="/${combo}/"
-      dirout=`${CONFIG_SHELL-/bin/sh} ./tmpmultilib3 "${combo}" "${todirnames}" "${toosdirnames}" "${enable_multilib}"`
+      dirout=`${CONFIG_SHELL-/sw/bash/bin/bash} ./tmpmultilib3 "${combo}" "${todirnames}" "${toosdirnames}" "${enable_multilib}"`
       copts="/${copts}/"
-      optout=`${CONFIG_SHELL-/bin/sh} ./tmpmultilib4 "${copts}" "${options}"`
+      optout=`${CONFIG_SHELL-/sw/bash/bin/bash} ./tmpmultilib4 "${copts}" "${options}"`
       # Output the line with all appropriate matches.
-      dirout="${dirout}" optout="${optout}" ${CONFIG_SHELL-/bin/sh} ./tmpmultilib2
+      dirout="${dirout}" optout="${optout}" ${CONFIG_SHELL-/sw/bash/bin/bash} ./tmpmultilib2
     else
       echo "The rule ${rrule} contains an option absent from MULTILIB_OPTIONS." >&2
       exit 1

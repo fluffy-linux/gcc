@@ -1,4 +1,4 @@
-#! /bin/sh -e
+#!/sw/bash/bin/bash -e
 
 # Create a new upstream user branch.
 

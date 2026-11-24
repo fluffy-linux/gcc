@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/sw/bash/bin/bash
 
 # Script to add some local git customizations suitable for working
 # with the GCC git repository

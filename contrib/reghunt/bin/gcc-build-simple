@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/sw/bash/bin/bash
 
 # Build a GCC compiler, using environment variables defined by several
 # reghunt scripts and config files.

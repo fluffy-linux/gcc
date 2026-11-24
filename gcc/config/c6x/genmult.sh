@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/sw/bash/bin/bash
 # Generate c6x-mult.md from c6x-mult.md.in
 # The input file is passed as an argument.
 

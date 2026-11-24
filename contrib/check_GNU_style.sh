@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/sw/bash/bin/bash
 
 # Checks some of the GNU style formatting rules in a set of patches.
 # Copyright (C) 2010-2026 Free Software Foundation, Inc.

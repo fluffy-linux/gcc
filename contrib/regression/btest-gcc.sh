@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/sw/bash/bin/bash
 
 #  Test GCC.
 #  Copyright (C) 1999-2026 Free Software Foundation, Inc.

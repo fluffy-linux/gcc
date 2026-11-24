@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/sw/bash/bin/bash
 
 # Make a list of revisions for commits to the branch of interest (trunk
 # by default) between the specified dates.  This skips commits that do

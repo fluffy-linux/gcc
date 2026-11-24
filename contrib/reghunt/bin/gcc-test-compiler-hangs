@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/sw/bash/bin/bash
 
 # Test a bug for which the compiler hangs, using environment variables
 # set in several reghunt scripts and configuration files.

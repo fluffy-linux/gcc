@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/sw/bash/bin/bash
 # Generate c6x-sched.md from c6x-sched.md.in
 # The input file is passed as an argument.
 

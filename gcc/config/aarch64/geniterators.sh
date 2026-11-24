@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/sw/bash/bin/bash
 #
 # Copyright (C) 2014-2026 Free Software Foundation, Inc.
 # Contributed by ARM Ltd.

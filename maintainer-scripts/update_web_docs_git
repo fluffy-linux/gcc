@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/sw/bash/bin/bash
 
 # Generate HTML documentation from GCC Texinfo docs.
 #

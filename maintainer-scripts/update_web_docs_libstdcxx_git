@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/sw/bash/bin/bash
 
 
 # "sh update_web_docs_libstdcxx_git"

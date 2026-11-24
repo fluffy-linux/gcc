@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/sw/bash/bin/bash
 
 # This filters GCC source before Doxygen can get confused by it;
 # this script is listed in the doxyfile.  The output is not very

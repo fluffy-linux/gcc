@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/sw/bash/bin/bash
 
 # Script to measure memset and memcpy for different sizes and strategies.
 #

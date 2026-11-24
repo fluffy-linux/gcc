@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/sw/bash/bin/bash
 # A simple script that generates loongarch-str.h and loongarch.opt
 # from genopt/loongarch-optstr.
 #

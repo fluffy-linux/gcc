@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/sw/bash/bin/bash
 
 # Compare the assembly language output for all the gcc tests.
 # Copyright (C) 2009-2026 Free Software Foundation, Inc.

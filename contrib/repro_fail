@@ -1,4 +1,4 @@
-#!/bin/bash -eu
+#!/sw/bash/bin/bash -eu
 #
 # Script to reproduce a test failure from a dejagnu .log file.
 #

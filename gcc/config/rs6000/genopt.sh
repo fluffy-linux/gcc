@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/sw/bash/bin/bash
 # Generate rs6000-tables.opt from the list of CPUs in rs6000-cpus.def.
 # Copyright (C) 2011-2026 Free Software Foundation, Inc.
 #

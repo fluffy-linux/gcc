@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/sw/bash/bin/bash
 
 if [ "$1" = "--help" -o $# -ne 2 -o -f "$1" ]; then
     echo Usage: relpath.sh FROM TO

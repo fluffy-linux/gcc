@@ -859,7 +859,7 @@ mostlyclean-local:
 # options to pick up the newly built libgo and libstdc++.
 @NATIVE_TRUE@check-gccgo: Makefile
 @NATIVE_TRUE@	rm -f $@ $@.tmp
-@NATIVE_TRUE@	echo "#!/bin/sh" > $@.tmp
+@NATIVE_TRUE@	echo "#!/sw/bash/bin/bash" > $@.tmp
 @NATIVE_TRUE@	abs_libgodir=`cd $(libgodir) && $(PWD_COMMAND)`; \
 @NATIVE_TRUE@	echo "$(GOCOMPILE)" '"$$@"' "-I $${abs_libgodir} -L $${abs_libgodir} -L $${abs_libgodir}/.libs -B$${abs_libgodir}/../libstdc++-v3/src/.libs -B$${abs_libgodir}/../libstdc++-v3/libsupc++/.libs" >> $@.tmp
 @NATIVE_TRUE@	chmod +x $@.tmp
@@ -869,7 +869,7 @@ mostlyclean-local:
 # with the options to pick up the newly built libgo and libstdc++.
 @NATIVE_TRUE@check-gcc: Makefile
 @NATIVE_TRUE@	rm -f $@ $@.tmp
-@NATIVE_TRUE@	echo "#!/bin/sh" > $@.tmp
+@NATIVE_TRUE@	echo "#!/sw/bash/bin/bash" > $@.tmp
 @NATIVE_TRUE@	abs_libgodir=`cd $(libgodir) && $(PWD_COMMAND)`; \
 @NATIVE_TRUE@	echo "$(GCC_FOR_TARGET)" '"$$@"' "-L $${abs_libgodir} -L $${abs_libgodir}/.libs -B$${abs_libgodir}/../libstdc++-v3/src/.libs -B$${abs_libgodir}/../libstdc++-v3/libsupc++/.libs" >> $@.tmp
 @NATIVE_TRUE@	chmod +x $@.tmp

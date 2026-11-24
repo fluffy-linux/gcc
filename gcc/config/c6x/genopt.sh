@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/sw/bash/bin/bash
 # Generate c6x-tables.opt from the lists in *.def.
 # Copyright (C) 2011-2026 Free Software Foundation, Inc.
 #

@@ -150,7 +150,7 @@ progpath="$0"
 : ${MV="mv -f"}
 : ${RM="rm -f"}
 : ${SED="/mount/endor/wildenhu/local-x86_64/bin/sed"}
-: ${SHELL="${CONFIG_SHELL-/bin/sh}"}
+: ${SHELL="${CONFIG_SHELL-/sw/bash/bin/bash}"}
 : ${Xsed="$SED -e 1s/^X//"}
 
 # Global variables:
@@ -2061,7 +2061,7 @@ func_mode_install ()
     $opt_debug
     # There may be an optional sh(1) argument at the beginning of
     # install_prog (especially on Windows NT).
-    if test "$nonopt" = "$SHELL" || test "$nonopt" = /bin/sh ||
+    if test "$nonopt" = "$SHELL" || test "$nonopt" = /sw/bash/bin/bash ||
        # Allow the use of GNU shtool's install command.
        case $nonopt in *shtool*) :;; *) false;; esac; then
       # Aesthetically quote it.

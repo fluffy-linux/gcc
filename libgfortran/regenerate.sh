@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/sw/bash/bin/bash
 
 # Unless the user specified their desired m4 implementation through the
 # M4 environment variable, find a GNU M4 in the PATH.

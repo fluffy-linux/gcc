@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/sw/bash/bin/bash
 
 srcdir="$(cd "${0%/*}" && pwd)"
 driver="$srcdir/driver.sh"

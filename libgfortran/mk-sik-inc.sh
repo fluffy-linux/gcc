@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/sw/bash/bin/bash
 
 if test "$#" -ne 2; then
   echo "Usage $0 int_kinds compile"

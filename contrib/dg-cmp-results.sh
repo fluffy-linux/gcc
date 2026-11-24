@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/sw/bash/bin/bash
 # Copyright (C) 2006-2026 Free Software Foundation, Inc.
 #
 # Analyze changes in GCC DejaGNU test logs for binutils, gcc, gdb, etc.

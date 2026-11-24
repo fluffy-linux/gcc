@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/sw/bash/bin/bash
 
 # Update or check out GCC sources for a particular Subversion revision
 # and a particular branch.

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/sw/bash/bin/bash
 # Generate the libstdc++ onlinedocs for a GCC release
 # i.e. http://gcc.gnu.org/onlinedocs/gcc-x.y.z/libstdc++*
 

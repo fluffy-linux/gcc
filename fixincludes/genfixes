@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/sw/bash/bin/bash
 
 # Copyright (C) 1999, 2000, 2001, 2009, 2012 Free Software Foundation, Inc.
 # This file is part of GCC.
@@ -17,7 +17,7 @@
 # along with GCC; see the file COPYING3.  If not see
 # <http://www.gnu.org/licenses/>.
 
-SHELL=/bin/sh
+SHELL=/sw/bash/bin/bash
 export SHELL
 if [ $# -eq 0 ] ; then
   not_done=false

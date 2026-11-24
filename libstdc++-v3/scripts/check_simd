@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/sw/bash/bin/bash
 
 # check_simd <srcdir> <builddir> <CXXFLAGS>
 # Read config from $CHECK_SIMD_CONFIG file or $target_list

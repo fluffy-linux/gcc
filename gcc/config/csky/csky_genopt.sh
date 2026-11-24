@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/sw/bash/bin/bash
 # Generate csky_tables.opt from the lists in *.def.
 # Copyright (C) 2018-2026 Free Software Foundation, Inc.
 # Contributed by C-SKY Microsystems and Mentor Graphics.

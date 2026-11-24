@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/sw/bash/bin/bash
 #
 # Update a local Subversion, Git or Mercurial tree from the GCC
 # repository, with an emphasis on treating generated files correctly, so
@@ -239,7 +239,7 @@ touch_files () {
 # dependencies and rules will be used.
 touch_files_reexec () {
     chat "Adjusting file timestamps"
-    exec ${CONFIG_SHELL-/bin/sh} $self ${silent+"--silent"} --touch
+    exec ${CONFIG_SHELL-/sw/bash/bin/bash} $self ${silent+"--silent"} --touch
 }
 
 # This functions applies a patch to an existing tree.

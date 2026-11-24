@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/sw/bash/bin/bash
 
 # (C) 2010 Free Software Foundation
 # Written by Ralf Wildenhues <Ralf.Wildenhues@gmx.de>.

@@ -3,7 +3,7 @@
 #
 #  This file contains the shell template to run tests on the fixes
 #
-=]#!/bin/sh
+=]#!/sw/bash/bin/bash
 
 set -e
 TESTDIR=tests

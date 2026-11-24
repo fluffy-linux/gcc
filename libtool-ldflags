@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/sw/bash/bin/bash
 
 # Script to translate LDFLAGS into a form suitable for use with libtool.
 

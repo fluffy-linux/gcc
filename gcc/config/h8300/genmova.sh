@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/sw/bash/bin/bash
 # Generate mova.md, a file containing patterns that can be implemented
 # using the h8sx mova instruction.
 

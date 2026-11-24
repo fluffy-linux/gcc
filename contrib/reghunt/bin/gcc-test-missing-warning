@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/sw/bash/bin/bash
 
 # Test a "missing-warning" GCC bug, using environment variables set in
 # several reghunt scripts and configuration files.

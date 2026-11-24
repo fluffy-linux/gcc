@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/sw/bash/bin/bash
 
 # Perform a simple build of GCC for a particular language, using several
 # environment variables defined by reghunt scripts and config files.

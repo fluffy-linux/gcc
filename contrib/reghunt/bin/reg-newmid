@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/sw/bash/bin/bash
 
 # The build failed for and identifier in the range bwetween LOW and HIGH.
 # Find a new patch id to try within that range.

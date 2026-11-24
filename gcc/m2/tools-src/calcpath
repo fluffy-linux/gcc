@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/sw/bash/bin/bash
 
 # calcpath return a path which is $1/$2/$3 when $2 is relative and $2/$3 if absolute.
 

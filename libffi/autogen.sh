@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/sw/bash/bin/bash
 #exec autoreconf -v -i
 
 rm -rf autom4te.cache

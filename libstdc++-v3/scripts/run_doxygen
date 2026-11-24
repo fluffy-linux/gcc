@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/sw/bash/bin/bash
 
 # Runs doxygen and massages the output files.
 # Copyright (C) 2001-2026 Free Software Foundation, Inc.

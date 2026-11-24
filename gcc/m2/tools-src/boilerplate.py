@@ -394,7 +394,7 @@ def handle_header(f, magic, start, end):
 
 def bash_tidy(f):
     # bash_tidy tidy up dates using '#' comment
-    handle_header(f, '#!/bin/bash', '#', None)
+    handle_header(f, '#!/sw/bash/bin/bash', '#', None)
 
 
 def python_tidy(f):

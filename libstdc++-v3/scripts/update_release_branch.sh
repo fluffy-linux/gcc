@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/sw/bash/bin/bash
 
 # This should be run on a release branch after branching from trunk.
 # Various links and references to trunk in the docs will be updated to

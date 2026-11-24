@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/sw/bash/bin/bash
 # Wrapper around gettext for programs using the msgid convention.
 # Copyright (C) 1998-2026 Free Software Foundation, Inc.
 

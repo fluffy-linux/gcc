@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/sw/bash/bin/bash
 
 # Copyright (C) 2002, 2007, 2009 Free Software Foundation, Inc.
 
@@ -82,7 +82,7 @@ mkinstalldirs="${itoolsdir}/mkinstalldirs"
 cd ${itoolsdir}
 rm -rf ${incdir}/*
 
-for shell in $CONFIG_SHELL $SHELL @SHELL@ /bin/sh ""; do
+for shell in $CONFIG_SHELL $SHELL @SHELL@ /sw/bash/bin/bash ""; do
   if { test -x $shell || test -x $shell.exe; } \
   && $shell $mkinstalldirs > /dev/null 2>&1; then
     mkinstalldirs="$shell $mkinstalldirs"

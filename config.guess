@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/sw/bash/bin/bash
 # Attempt to guess a canonical system name.
 #   Copyright 1992-2021 Free Software Foundation, Inc.
 
@@ -945,7 +945,7 @@ EOF
 	  EV67)  UNAME_MACHINE=alphaev67 ;;
 	  EV68*) UNAME_MACHINE=alphaev68 ;;
 	esac
-	objdump --private-headers /bin/sh | grep -q ld.so.1
+	objdump --private-headers /sw/bash/bin/bash | grep -q ld.so.1
 	if test "$?" = 0 ; then LIBC=gnulibc1 ; fi
 	echo "$UNAME_MACHINE"-unknown-linux-"$LIBC"
 	exit ;;

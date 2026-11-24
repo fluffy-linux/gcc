@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/sw/bash/bin/bash
 
 # Worker script for libgcc/Makefile.in
 # Generate lists of fixed-point labels, funcs, modes, from, to.

@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/sw/bash/bin/bash
 
 # For a specified tool and optional list of test variants, extract
 # test results from one or more test summary (.sum) files and combine

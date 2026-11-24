@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/sw/bash/bin/bash
 # Generate mips-tables.opt from the list of CPUs in mips-cpus.def.
 # Copyright (C) 2011-2026 Free Software Foundation, Inc.
 #

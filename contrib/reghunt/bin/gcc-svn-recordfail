@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/sw/bash/bin/bash
 
 # Given an identifier that is an index into the current patch list,
 # record the corresponding SVN number to the list of known failures.

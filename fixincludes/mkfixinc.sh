@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/sw/bash/bin/bash
 
 if [ $# -ne 1 ]
 then
@@ -22,7 +22,7 @@ case $machine in
     *-musl* )
 	#  IF there is no include fixing,
 	#  THEN create a no-op fixer and exit
-	(echo "#! /bin/sh" ; echo "exit 0" ) > ${target}
+	(echo "#! /sw/bash/bin/bash" ; echo "exit 0" ) > ${target}
         ;;
 
     *)

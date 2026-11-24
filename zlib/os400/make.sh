@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/sw/bash/bin/bash
 #
 #       ZLIB compilation script for the OS/400.
 #

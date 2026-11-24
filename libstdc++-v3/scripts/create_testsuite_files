@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/sw/bash/bin/bash
 
 # Constructs lists of source files (full pathnames) to test.  Two
 # files are constructed: testsuite_files, which is used to test with

@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/sw/bash/bin/bash
 
 # Test a "wrong-code" GCC bug, using environment variables set in
 # several reghunt scripts and configuration files.

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/sw/bash/bin/bash
 
 # install-debug-info-for-buildid.sh -- Helper script for libbacktrace library
 # testing.

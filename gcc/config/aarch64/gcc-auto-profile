@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/sw/bash/bin/bash
 # Profile workload for gcc profile feedback (autofdo) using Linux perf.
 # Copyright The GNU Toolchain Authors.
 #

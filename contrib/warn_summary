@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/sw/bash/bin/bash
 #
 # This script parses the output of a gcc bootstrap when using warning
 # flags and determines various statistics.

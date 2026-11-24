@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/sw/bash/bin/bash
 #
 # Check that the warning flags documented in invoke.texi match up
 # with what the compiler accepts.

@@ -112,7 +112,7 @@ for j in u:
 u.close()
 
 if args.script:
-    print(r'''#!/bin/sh
+    print(r'''#!/sw/bash/bin/bash
 # Profile workload for gcc profile feedback (autofdo) using Linux perf.
 # Auto generated. To regenerate for new CPUs run
 # contrib/gen_autofdo_event.py --script --all in gcc source

@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/sw/bash/bin/bash
 # Shell-based mutex using mkdir.  This script is used in make to prefer
 # serialized execution to avoid consuming too much RAM.  If reusing it,
 # bear in mind that the lock-breaking logic is not race-free, so disable
