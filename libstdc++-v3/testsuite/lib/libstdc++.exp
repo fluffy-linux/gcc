@@ -137,6 +137,17 @@ proc libstdc++_init { testfile } {
     }
 
     set blddir [lookfor_file [get_multilibs] libstdc++-v3]
+    # A standalone build (libstdc++-v3/configure run directly rather than
+    # from the GCC top level) has no libstdc++-v3 subdirectory, so the
+    # search above finds the source directory or nothing.  The build
+    # directory is then the one above the testsuite (or above its
+    # normal<N> subdirectory in a parallel run) holding scripts/testsuite_flags.
+    if { ![file exists ${blddir}/scripts/testsuite_flags] } {
+	set standalone_flags [lookfor_file ${objdir} scripts/testsuite_flags]
+	if { ${standalone_flags} != "" } {
+	    set blddir [file normalize [file dirname [file dirname ${standalone_flags}]]]
+	}
+    }
     set flags_file "${blddir}/scripts/testsuite_flags"
     set shlib_ext [get_shlib_extension]
     v3track flags_file 2
